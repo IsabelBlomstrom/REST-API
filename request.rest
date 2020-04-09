@@ -1,0 +1,38 @@
+
+//Hämta startsidan
+GET http://localhost:3000/ HTTP/1.1
+###
+
+//Hämta alla böcker
+GET http://localhost:3000/books HTTP/1.1
+
+###
+
+//Lägg till en ny bok
+POST http://localhost:3000/books HTTP/1.1
+content-type: application/json
+
+{
+    "id": 4,
+    "title": "Testing testing",
+    "author": "Test Testsson",
+    "released": 1988
+}
+
+###
+
+//Ändra något i ett bok-objekt
+PUT http://localhost:3000/books/2 HTTP/1.1
+content-type: application/json
+
+{
+    "id": 2,
+    "title": "Putting putters",
+    "author": "Put Putterson",
+    "released": 2005
+  }
+
+###
+
+//Ta bort ett bok-objekt
+DELETE http://localhost:3000/books/2 HTTP/1.1
