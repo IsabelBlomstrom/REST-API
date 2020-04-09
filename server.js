@@ -4,19 +4,19 @@ const port = 3000
 
 const books = [{
     id: 1,
-    title: "Den bästa boken",
+    title: "The greatest",
     author: "Isabel Blomström",
     released: 2010
   },
   {
     id: 2,
-    title: "Den sämsta boken",
+    title: "Worst case",
     author: "Neil Strauss",
     released: 2005
   },
   {
     id: 3,
-    title: "Boken som inte är en bok",
+    title: "The 'book'",
     author: "Anonymous",
     released: 0
   }
@@ -34,7 +34,8 @@ app.get("/books", (req, res) => {
 
 app.get("/books/:id", (req, res) => {
   const book = books.find(book => book.id == req.params.id)
-  if(!book) res.status(404).send("Boken finns inte")
+  if(!book) {
+   return res.status(404).send("Boken finns inte")}
   res.send(book)
  })
 
@@ -47,7 +48,8 @@ app.post("/books", (req, res) => {
 //Ändrar
 app.put("/books/:id", (req, res) => {
  const book = books.find(b => b.id == req.params.id)
- if(!book) res.status(404).send("Boken finns inte")
+ if(!book) {
+   return res.status(404).send("Boken finns inte")}
 
  book.title = req.body.title
  book.author = req.body.author
@@ -55,7 +57,13 @@ app.put("/books/:id", (req, res) => {
 })
 
 app.delete("/books/:id", (req, res) => {
-  res.json(req.body)
+  const book = books.find(b => b.id == req.params.id)
+ if(!book) {
+  return res.status(404).send("Boken finns inte")}
+
+ const index = books.indexOf(book)
+ books.splice(index, 1)
+ res.send(book)
 })
 
 app.listen(port, () => {
